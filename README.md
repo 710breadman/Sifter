@@ -63,4 +63,22 @@ Before copying a large library:
 
 Sifter keeps your source library read-only, but choosing the correct export folder is still important.
 
+## Developer Build
+
+The current stable app is the PowerShell/WPF version:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Run-RomCurator.ps1
+```
+
+The compiled .NET path is now being built beside it:
+
+```powershell
+dotnet build .\Sifter.slnx
+dotnet test .\Sifter.slnx
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\Publish-Sifter-DotNet.ps1 -Clean -Zip
+```
+
+The .NET app lives under `src\Sifter.App`, reusable logic under `src\Sifter.Core`, and tests under `tests\Sifter.Core.Tests`. Existing user data intentionally remains under `%APPDATA%\RomCurator` during the migration so settings and caches are not remade.
+
 ## This was made to make my personal life easier and for fun

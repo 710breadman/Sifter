@@ -1,4 +1,7 @@
+bin/
+obj/
 tests/tmp/
 dist/RomCurator/
+dist/Sifter.DotNet/
 dist/*.zip
 *.log

@@ -1,0 +1,73 @@
+name: .NET Desktop Build
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore Sifter.slnx
+
+      - name: Build
+        run: dotnet build Sifter.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test Sifter.slnx --configuration Release --no-build
+
+      - name: Publish Windows desktop package
+        run: >
+          dotnet publish src\Sifter.App\Sifter.App.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:EnableCompressionInSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:DebugType=embedded
+          --output publish\Sifter
+
+      - name: Zip package
+        shell: pwsh
+        run: Compress-Archive -Path publish\Sifter\* -DestinationPath publish\Sifter-win-x64.zip -Force
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sifter-win-x64
+          path: publish/Sifter-win-x64.zip
+
+      - name: Attach package to tag release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $tag = $env:GITHUB_REF_NAME
+          gh release view $tag
+          if ($LASTEXITCODE -ne 0) {
+              gh release create $tag publish\Sifter-win-x64.zip --title "Sifter $tag" --generate-notes
+          } else {
+              gh release upload $tag publish\Sifter-win-x64.zip --clobber
+          }

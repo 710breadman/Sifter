@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Sifter.App/Sifter.App.csproj" />
+    <Project Path="src/Sifter.Core/Sifter.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Sifter.Core.Tests/Sifter.Core.Tests.csproj" />
+  </Folder>
+</Solution>
