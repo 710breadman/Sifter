@@ -42,17 +42,13 @@ Use Sifter when you want to:
 
 Sifter can save selections as presets.
 
-User Presets
+- User Presets
 
-Use these for yourself on the same computer.
+  - Use these for yourself on the same computer. They may include full folder paths, selected games, systems, ratings, sizes, and export settings.
 
-They may include full folder paths, selected games, systems, ratings, sizes, and export settings.
+- Community Presets
 
-Community Presets
-
-Use these when sharing a selection with someone else.
-
-Community presets try to avoid saving private user information, but lets people share curated lists.
+  - Use these when sharing a selection with someone else. Community presets avoid saving private user information, but lets you share curated lists.
 
 ## Important Safety Notes
 
@@ -67,4 +63,4 @@ Before copying a large library:
 
 Sifter keeps your source library read-only, but choosing the correct export folder is still important.
 
-This was made to make my personal life easier and for fun
+## This was made to make my personal life easier and for fun
