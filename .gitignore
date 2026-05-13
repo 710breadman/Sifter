@@ -1,4 +1,4 @@
 tests/tmp/
 dist/RomCurator/
+dist/*.zip
 *.log
-
