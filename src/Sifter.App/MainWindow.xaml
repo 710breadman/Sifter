@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Sifter" Width="1180" Height="760" MinWidth="960" MinHeight="620"
+        Title="Sifter" Width="1240" Height="820" MinWidth="1060" MinHeight="680"
         WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
         <Border DockPanel.Dock="Top" Background="{StaticResource AppPanelBrush}" BorderBrush="{StaticResource AppBorderBrush}" BorderThickness="0,0,0,1" Padding="18,14">
@@ -14,108 +14,196 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Image Width="40" Height="40" Source="Assets/Sifter.ico" Margin="0,0,14,0"/>
+
+                <Image Width="42" Height="42" Source="Assets/Sifter.ico" Margin="0,0,14,0"/>
+
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock Text="Sifter" FontSize="22" FontWeight="SemiBold"/>
+                    <TextBlock Text="Sifter" FontSize="24" FontWeight="SemiBold"/>
                     <TextBlock x:Name="BuildInfoText" Foreground="{StaticResource AppMutedTextBrush}" Margin="0,3,0,0"/>
                 </StackPanel>
+
                 <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button x:Name="LaunchStableButton" Content="Launch Stable Sifter" Style="{StaticResource PrimaryButtonStyle}"/>
-                    <Button x:Name="OpenRepositoryButton" Content="GitHub"/>
+                    <Button x:Name="SaveSettingsButton" Content="Save"/>
+                    <Button x:Name="OpenLogsButton" Content="Logs"/>
                 </StackPanel>
             </Grid>
         </Border>
 
-        <StatusBar DockPanel.Dock="Bottom" Background="{StaticResource AppPanelBrush}" BorderBrush="{StaticResource AppBorderBrush}" BorderThickness="0,1,0,0">
+        <StatusBar DockPanel.Dock="Bottom" BorderBrush="{StaticResource AppBorderBrush}" BorderThickness="0,1,0,0">
             <TextBlock x:Name="StatusText" Text="Ready"/>
         </StatusBar>
 
-        <TabControl Margin="14">
-            <TabItem Header="Dashboard">
-                <Grid Margin="0,12,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Background="{StaticResource AppPanelBrush}" BorderBrush="{StaticResource AppBorderBrush}" BorderThickness="1" Padding="16" Margin="0,0,12,0">
+        <Grid Margin="14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="360"/>
+                <ColumnDefinition Width="14"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Start Here" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="Pick your folders, scan, then copy or favorite the selected games." Foreground="{StaticResource AppMutedTextBrush}" Margin="0,0,0,12"/>
+
+                    <Border Style="{StaticResource PanelBorderStyle}">
                         <StackPanel>
-                            <TextBlock Text="Runtime" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="App data" Foreground="{StaticResource AppMutedTextBrush}" Margin="0,0,10,8"/>
-                                <TextBox x:Name="AppDataPathText" Grid.Column="1" IsReadOnly="True" Margin="0,0,0,8"/>
-                                <TextBlock Text="Cache" Grid.Row="1" Foreground="{StaticResource AppMutedTextBrush}" Margin="0,0,10,8"/>
-                                <TextBox x:Name="CachePathText" Grid.Row="1" Grid.Column="1" IsReadOnly="True" Margin="0,0,0,8"/>
-                                <TextBlock Text="Logs" Grid.Row="2" Foreground="{StaticResource AppMutedTextBrush}" Margin="0,0,10,8"/>
-                                <TextBox x:Name="LogPathText" Grid.Row="2" Grid.Column="1" IsReadOnly="True" Margin="0,0,0,8"/>
-                                <TextBlock Text="Stable app" Grid.Row="3" Foreground="{StaticResource AppMutedTextBrush}" Margin="0,0,10,0"/>
-                                <TextBox x:Name="StableScriptPathText" Grid.Row="3" Grid.Column="1" IsReadOnly="True"/>
-                            </Grid>
-                            <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
-                                <Button x:Name="OpenAppDataButton" Content="Open App Data"/>
-                                <Button x:Name="OpenStableFolderButton" Content="Open Stable Folder"/>
-                            </StackPanel>
+                            <TextBlock Text="Folders" FontWeight="SemiBold" FontSize="15" Margin="0,0,0,10"/>
+
+                            <TextBlock Text="Gamelists" Foreground="{StaticResource AppMutedTextBrush}"/>
+                            <DockPanel Margin="0,4,0,10">
+                                <Button x:Name="BrowseGamelistsButton" DockPanel.Dock="Right" Content="Browse" Margin="8,0,0,0"/>
+                                <TextBox x:Name="GamelistsRootText"/>
+                            </DockPanel>
+
+                            <TextBlock Text="ROMs" Foreground="{StaticResource AppMutedTextBrush}"/>
+                            <DockPanel Margin="0,4,0,10">
+                                <Button x:Name="BrowseRomsButton" DockPanel.Dock="Right" Content="Browse" Margin="8,0,0,0"/>
+                                <TextBox x:Name="RomsRootText"/>
+                            </DockPanel>
+
+                            <TextBlock Text="Export To" Foreground="{StaticResource AppMutedTextBrush}"/>
+                            <DockPanel Margin="0,4,0,10">
+                                <Button x:Name="BrowseExportButton" DockPanel.Dock="Right" Content="Browse" Margin="8,0,0,0"/>
+                                <TextBox x:Name="ExportRootText"/>
+                            </DockPanel>
+
+                            <TextBlock Text="Ratings" Foreground="{StaticResource AppMutedTextBrush}"/>
+                            <DockPanel Margin="0,4,0,0">
+                                <Button x:Name="BrowseRatingsButton" DockPanel.Dock="Right" Content="File" Margin="8,0,0,0"/>
+                                <Button x:Name="UseBundledRatingsButton" DockPanel.Dock="Right" Content="Built In" Margin="8,0,0,0"/>
+                                <TextBox x:Name="RatingsFileText"/>
+                            </DockPanel>
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Column="1" Background="{StaticResource AppPanelBrush}" BorderBrush="{StaticResource AppBorderBrush}" BorderThickness="1" Padding="16">
+                    <Button x:Name="DiscoverSystemsButton" Content="Discover Systems" Style="{StaticResource PrimaryButtonStyle}" Margin="0,12,0,0"/>
+
+                    <Expander Header="Systems" IsExpanded="False">
+                        <Border Style="{StaticResource PanelBorderStyle}" Margin="0,8,0,0">
+                            <StackPanel>
+                                <DockPanel Margin="0,0,0,8">
+                                    <Button x:Name="SelectAllSystemsButton" Content="All" DockPanel.Dock="Left"/>
+                                    <Button x:Name="SelectNoSystemsButton" Content="None" DockPanel.Dock="Left"/>
+                                    <TextBlock x:Name="SystemCountText" Foreground="{StaticResource AppMutedTextBrush}" VerticalAlignment="Center"/>
+                                </DockPanel>
+                                <ScrollViewer MaxHeight="190" VerticalScrollBarVisibility="Auto">
+                                    <StackPanel x:Name="SystemListPanel"/>
+                                </ScrollViewer>
+                            </StackPanel>
+                        </Border>
+                    </Expander>
+
+                    <Expander Header="Filters" IsExpanded="False">
+                        <Border Style="{StaticResource PanelBorderStyle}" Margin="0,8,0,0">
+                            <StackPanel>
+                                <TextBlock Text="Preset" Foreground="{StaticResource AppMutedTextBrush}"/>
+                                <ComboBox x:Name="FilterPresetCombo" SelectedIndex="0" Margin="0,4,0,10">
+                                    <ComboBoxItem Content="Balanced top-rated"/>
+                                    <ComboBoxItem Content="Only the best"/>
+                                    <ComboBoxItem Content="Small curated batch"/>
+                                    <ComboBoxItem Content="Custom"/>
+                                </ComboBox>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="12"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="Min score" Foreground="{StaticResource AppMutedTextBrush}"/>
+                                        <TextBox x:Name="MinimumScoreText" Text="75" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Per system" Foreground="{StaticResource AppMutedTextBrush}"/>
+                                        <TextBox x:Name="TopPerSystemText" Text="25" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <CheckBox x:Name="ExcludeDuplicatesCheck" Content="Skip duplicate editions" IsChecked="True" Margin="0,10,0,0"/>
+
+                                <TextBlock Text="Hide genres" Foreground="{StaticResource AppMutedTextBrush}" Margin="0,10,0,4"/>
+                                <ComboBox x:Name="GenreQuickCombo" SelectedIndex="0" Margin="0,0,0,8">
+                                    <ComboBoxItem Content="Do not hide genres"/>
+                                    <ComboBoxItem Content="Hide sports and racing"/>
+                                    <ComboBoxItem Content="Hide sports, racing, fighting"/>
+                                    <ComboBoxItem Content="Choose below"/>
+                                </ComboBox>
+                                <WrapPanel x:Name="GenreListPanel"/>
+                            </StackPanel>
+                        </Border>
+                    </Expander>
+
+                    <Expander Header="Copy Options" IsExpanded="False">
+                        <Border Style="{StaticResource PanelBorderStyle}" Margin="0,8,0,0">
+                            <StackPanel>
+                                <CheckBox x:Name="DryRunCheck" Content="Preview first" IsChecked="True"/>
+                                <CheckBox x:Name="OverwriteCheck" Content="Overwrite existing files"/>
+                            </StackPanel>
+                        </Border>
+                    </Expander>
+
+                    <Border Style="{StaticResource PanelBorderStyle}" Margin="0,12,0,0">
                         <StackPanel>
-                            <TextBlock Text="Next Build" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,10"/>
-                            <TextBlock Text="Core library" Margin="0,0,0,8"/>
-                            <ProgressBar Height="8" Minimum="0" Maximum="100" Value="25" Margin="0,0,0,14"/>
-                            <TextBlock Text="Native WPF shell" Margin="0,0,0,8"/>
-                            <ProgressBar Height="8" Minimum="0" Maximum="100" Value="20" Margin="0,0,0,14"/>
-                            <TextBlock Text="Scanner port" Margin="0,0,0,8"/>
-                            <ProgressBar Height="8" Minimum="0" Maximum="100" Value="0" Margin="0,0,0,14"/>
-                            <TextBlock Text="Exporter port" Margin="0,0,0,8"/>
-                            <ProgressBar Height="8" Minimum="0" Maximum="100" Value="0"/>
+                            <TextBlock Text="Actions" FontWeight="SemiBold" FontSize="15" Margin="0,0,0,10"/>
+                            <Button x:Name="ScanButton" Content="Scan Library" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,0,8"/>
+                            <Button x:Name="PickTopButton" Content="Pick Top Games" Margin="0,0,0,8"/>
+                            <Button x:Name="PreviewCopyButton" Content="Preview Copy" Margin="0,0,0,8"/>
+                            <Button x:Name="CopyButton" Content="Copy Selected" Margin="0,0,0,8"/>
+                            <Button x:Name="FavoriteButton" Content="Add Selected To Favorites" Margin="0"/>
                         </StackPanel>
                     </Border>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Library">
-                <Grid Margin="0,12,0,0">
-                    <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="System" Width="120"/>
-                            <DataGridTextColumn Header="Game" Width="*"/>
-                            <DataGridTextColumn Header="Score" Width="90"/>
-                            <DataGridTextColumn Header="Size" Width="110"/>
-                            <DataGridCheckBoxColumn Header="Selected" Width="100"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Export">
-                <Grid Margin="0,12,0,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Preview"/>
-                        <Button Content="Copy Selected" Style="{StaticResource PrimaryButtonStyle}"/>
-                        <Button Content="Cancel"/>
-                    </StackPanel>
-                    <TextBox Grid.Row="1" Margin="0,12,0,0" IsReadOnly="True" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Maintenance">
-                <StackPanel Margin="0,12,0,0">
-                    <Button Content="Refresh Cache" Width="150" HorizontalAlignment="Left" Margin="0,0,0,8"/>
-                    <Button Content="Open Logs" Width="150" HorizontalAlignment="Left" Margin="0,0,0,8"/>
-                    <Button Content="Update Ratings" Width="150" HorizontalAlignment="Left"/>
                 </StackPanel>
-            </TabItem>
-        </TabControl>
+            </ScrollViewer>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+
+                <Border Style="{StaticResource PanelBorderStyle}" Padding="16" Margin="0,0,0,12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock x:Name="SummaryTitleText" Text="No scan yet" FontSize="18" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="SummaryDetailText" Text="Discover systems, scan your library, then Sifter will pre-pick a simple top-rated set." Foreground="{StaticResource AppMutedTextBrush}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button x:Name="SelectAllGamesButton" Content="Select All"/>
+                            <Button x:Name="ClearGameSelectionButton" Content="Clear"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <DataGrid x:Name="CandidateGrid"
+                          Grid.Row="1"
+                          ItemsSource="{Binding Games}"
+                          IsReadOnly="False"
+                          SelectionMode="Extended"
+                          AlternationCount="2"
+                          Margin="0,0,0,12">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="Pick" Binding="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="58"/>
+                        <DataGridTextColumn Header="System" Binding="{Binding SystemName}" IsReadOnly="True" Width="130"/>
+                        <DataGridTextColumn Header="Game" Binding="{Binding GameName}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Score" Binding="{Binding ScoreText}" IsReadOnly="True" Width="70"/>
+                        <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" IsReadOnly="True" Width="130"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding StatusText}" IsReadOnly="True" Width="140"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <TextBox x:Name="LogText"
+                         Grid.Row="2"
+                         IsReadOnly="True"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"/>
+            </Grid>
+        </Grid>
     </DockPanel>
 </Window>

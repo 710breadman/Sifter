@@ -3,12 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <SolidColorBrush x:Key="AppBackgroundBrush" Color="#F5F7FA"/>
-        <SolidColorBrush x:Key="AppPanelBrush" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="AppBorderBrush" Color="#D7DEE8"/>
-        <SolidColorBrush x:Key="AppTextBrush" Color="#161B22"/>
-        <SolidColorBrush x:Key="AppMutedTextBrush" Color="#5C6675"/>
-        <SolidColorBrush x:Key="AppAccentBrush" Color="#1F6FEB"/>
+        <SolidColorBrush x:Key="AppBackgroundBrush" Color="#0B1120"/>
+        <SolidColorBrush x:Key="AppPanelBrush" Color="#111827"/>
+        <SolidColorBrush x:Key="AppPanelAltBrush" Color="#162033"/>
+        <SolidColorBrush x:Key="AppInputBrush" Color="#0F172A"/>
+        <SolidColorBrush x:Key="AppBorderBrush" Color="#2D3A4F"/>
+        <SolidColorBrush x:Key="AppTextBrush" Color="#F8FAFC"/>
+        <SolidColorBrush x:Key="AppMutedTextBrush" Color="#A9B4C4"/>
+        <SolidColorBrush x:Key="AppAccentBrush" Color="#38BDF8"/>
+        <SolidColorBrush x:Key="AppAccentDarkBrush" Color="#0EA5E9"/>
+        <SolidColorBrush x:Key="AppDangerBrush" Color="#F97373"/>
 
         <Style TargetType="Window">
             <Setter Property="Background" Value="{StaticResource AppBackgroundBrush}"/>
@@ -16,28 +20,106 @@
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="13"/>
         </Style>
+
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
+
+        <Style TargetType="Border" x:Key="PanelBorderStyle">
+            <Setter Property="Background" Value="{StaticResource AppPanelBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AppBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="14"/>
+        </Style>
+
         <Style TargetType="Button">
             <Setter Property="MinHeight" Value="34"/>
             <Setter Property="Padding" Value="12,6"/>
             <Setter Property="Margin" Value="0,0,8,0"/>
             <Setter Property="BorderBrush" Value="{StaticResource AppBorderBrush}"/>
-            <Setter Property="Background" Value="{StaticResource AppPanelBrush}"/>
+            <Setter Property="Background" Value="{StaticResource AppPanelAltBrush}"/>
             <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
+
         <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Background" Value="{StaticResource AppAccentBrush}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource AppAccentBrush}"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{StaticResource AppAccentDarkBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AppAccentDarkBrush}"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
         </Style>
+
         <Style TargetType="TextBox">
-            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AppBorderBrush}"/>
+            <Setter Property="Background" Value="{StaticResource AppInputBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource AppAccentDarkBrush}"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="MinHeight" Value="32"/>
             <Setter Property="Padding" Value="8,4"/>
             <Setter Property="BorderBrush" Value="{StaticResource AppBorderBrush}"/>
-            <Setter Property="Background" Value="{StaticResource AppPanelBrush}"/>
+            <Setter Property="Background" Value="{StaticResource AppInputBrush}"/>
             <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="{StaticResource AppInputBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="Margin" Value="0,4,10,4"/>
+        </Style>
+
+        <Style TargetType="Expander">
+            <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="{StaticResource AppInputBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AppBorderBrush}"/>
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource AppInputBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AppBorderBrush}"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource AppBorderBrush}"/>
+            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource AppBorderBrush}"/>
+            <Setter Property="RowBackground" Value="{StaticResource AppInputBrush}"/>
+            <Setter Property="AlternatingRowBackground" Value="#132036"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource AppPanelAltBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AppBorderBrush}"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource AppTextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AppBorderBrush}"/>
+            <Setter Property="Padding" Value="5,2"/>
+        </Style>
+
+        <Style TargetType="StatusBar">
+            <Setter Property="Background" Value="{StaticResource AppPanelBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource AppMutedTextBrush}"/>
         </Style>
     </Application.Resources>
 </Application>

@@ -1,6 +1,7 @@
 param(
-    [string]$OutputRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) 'dist\Sifter.DotNet'),
+    [string]$OutputRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) 'dist\Sifter-Standalone'),
     [string]$Runtime = 'win-x64',
+    [string]$DotnetPath = 'dotnet',
     [switch]$Clean,
     [switch]$Zip
 )
@@ -22,15 +23,20 @@ if ($Clean -and (Test-Path -LiteralPath $outputRoot)) {
     Remove-Item -LiteralPath $resolvedOutput -Recurse -Force
 }
 
-dotnet publish $project `
+& $DotnetPath publish $project `
     --configuration Release `
     --runtime $Runtime `
     --self-contained true `
     -p:PublishSingleFile=true `
     -p:EnableCompressionInSingleFile=true `
     -p:IncludeNativeLibrariesForSelfExtract=true `
-    -p:DebugType=embedded `
-    --output $outputRoot
+    -p:DebugType=none `
+    -p:DebugSymbols=false `
+    -p:PublishReadyToRun=false `
+    -p:EventSourceSupport=false `
+    -p:MetadataUpdaterSupport=false `
+    --output $outputRoot `
+    /nr:false
 
 if ($LASTEXITCODE -ne 0) {
     throw 'dotnet publish failed.'
