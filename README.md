@@ -1,66 +1,61 @@
 # Sifter
 
-Sifter is a Windows app that helps you sort and copy your retro game library.
+Sifter is a standalone Windows app for finding, favoriting, and copying the best games from an ES-DE / EmulationStation ROM library.
 
-It scans your ES-DE / EmulationStation game lists, checks game information and Metacritic scores, lets you pick which games you want, then copies those games to another drive or folder.
+The app is now a native .NET/WPF executable. It does not need a PowerShell host, loose script package, or zip bundle at runtime.
 
-Sifter is designed to be safe:
+## What It Does
 
-- It does **not** delete your original ROMs.
-- It does **not** edit your original `gamelist.xml` files.
-- It copies selected games to your chosen export folder.
-- If something goes wrong during copy, Sifter logs the issue and keeps going when it can.
-
-## What Sifter Is For
-
-Use Sifter when you want to:
-
-- Find and organize games from a large ROM library.
-- Sort games by rating, size, system, or other information.
-- Pick the best-rated games first.
-- Avoid copying duplicate games when possible.
-- Copy selected games to a smaller drive, handheld, SD card, or backup folder.
-- Keep a record of what was copied.
+- Scans `gamelist.xml` files first, so only games that exist in your library drive the results.
+- Matches games to bundled or custom Metacritic JSON/JSONL ratings.
+- Pre-picks a simple top-rated set per system.
+- Keeps systems, genres, and copy options tucked away until you need them.
+- Copies selected games in round-robin system order.
+- Can mark selected games as favorites by writing `<favorite>true</favorite>` to `gamelist.xml`.
+- Creates XML backups before favorite edits.
+- Writes copy preview/copy manifests to the app log folder.
 
 ## Quick Start
 
-- In Paths area, choose your folders:
-  - Gamelists folder
-  - ROMs folder
-  - Media folder
-  - Export folder
-- Click Save settings.
-- Go to the Library / Selection area.
-- Click Discover Systems.
-- Scan your library.
-- Use filters and sorting to find the games you want.
-- Select the games you want to copy.
-- Recommended: click Preview first.
-- If the preview looks right, click Copy selected.
+1. Open `Sifter.exe`.
+2. Choose:
+   - Gamelists folder
+   - ROMs folder
+   - Export folder
+3. Click **Discover Systems**.
+4. Click **Scan Library**.
+5. Review the picked games.
+6. Click **Preview Copy** first, then **Copy Selected** when it looks right.
 
-## Presets (BETA)
+Use **Add Selected To Favorites** when you want the selected games marked as favorites in ES-DE.
 
-Sifter can save selections as presets.
+## Safety
 
-- User Presets
+Sifter does not delete source ROMs. Copying writes to your chosen export folder. Favorite edits are the only operation that modifies existing library metadata, and Sifter creates a `.bak_yyyyMMdd_HHmmss` backup before saving each edited `gamelist.xml`.
 
-  - Use these for yourself on the same computer. They may include full folder paths, selected games, systems, ratings, sizes, and export settings.
+## Build
 
-- Community Presets
+Install the .NET SDK requested by `global.json`, then run:
 
-  - Use these when sharing a selection with someone else. Community presets avoid saving private user information, but lets you share curated lists.
+```powershell
+dotnet test tests\Sifter.Core.Tests\Sifter.Core.Tests.csproj
+.\tools\Publish-Sifter-DotNet.ps1 -Clean
+```
 
-## Important Safety Notes
+The standalone executable is published to:
 
-Sifter is meant to copy and organize your own library.
+```text
+dist\Sifter-Standalone\Sifter.exe
+```
 
-Before copying a large library:
+The current self-contained Windows build is about 63 MB. Most of that is the bundled .NET desktop runtime; WPF does not support trimming, so the app keeps trimming disabled for reliability.
 
-- Run a preview.
-- Make sure the export folder is correct.
-- Check available free space.
-- Copy a small test set first if you are unsure.
+Crash logs, when Sifter can write them, go to:
 
-Sifter keeps your source library read-only, but choosing the correct export folder is still important.
+```text
+%APPDATA%\RomCurator\logs
+```
 
-## This was made to make my personal life easier and for fun
+## Notes
+
+`tools\Build-Metacritic-Critic-Scores.ps1` is kept as an optional data-maintenance helper. It is not needed to run Sifter.
