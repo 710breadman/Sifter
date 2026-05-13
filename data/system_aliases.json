@@ -1,0 +1,19 @@
+{
+  "gc": ["gamecube", "ngc", "nintendo gamecube"],
+  "genesis": ["megadrive", "md", "sega genesis", "sega megadrive"],
+  "xbox360": ["x360", "xbox 360", "xb360"],
+  "psx": ["ps1", "playstation", "playstation 1", "sony playstation"],
+  "n64": ["nintendo64", "nintendo 64"],
+  "snes": ["sfc", "super nintendo", "super famicom"],
+  "nes": ["famicom", "nintendo entertainment system"],
+  "arcade": ["mame", "fbneo", "fba", "finalburn neo"],
+  "tg16": ["pcengine", "pc engine", "turbografx16", "turbografx-16"],
+  "dreamcast": ["dc", "sega dreamcast"],
+  "switch": ["nsw", "nintendo switch"],
+  "wiiu": ["wii u", "nintendo wii u"],
+  "3ds": ["n3ds", "nintendo 3ds"],
+  "nds": ["ds", "nintendo ds"],
+  "ps2": ["playstation2", "playstation 2"],
+  "ps3": ["playstation3", "playstation 3"],
+  "psp": ["playstation portable"]
+}

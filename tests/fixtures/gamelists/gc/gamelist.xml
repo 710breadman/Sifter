@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gameList>
+  <game>
+    <path>./The Legend of Zelda - Ocarina of Time (USA).z64</path>
+    <name>The Legend of Zelda: Ocarina of Time</name>
+    <desc>A tiny fixture entry.</desc>
+    <image>./media/images/The Legend of Zelda - Ocarina of Time (USA).png</image>
+    <video>./media/videos/The Legend of Zelda - Ocarina of Time (USA).mp4</video>
+    <rating>0.95</rating>
+    <releasedate>19981123T000000</releasedate>
+    <developer>Nintendo</developer>
+    <publisher>Nintendo</publisher>
+    <genre>Adventure</genre>
+    <players>1</players>
+    <favorite>true</favorite>
+    <hidden>false</hidden>
+    <kidgame>false</kidgame>
+    <playcount>3</playcount>
+  </game>
+  <game>
+    <path>./Missing Game.iso</path>
+    <name>Missing Game</name>
+    <genre>Action</genre>
+  </game>
+</gameList>
