@@ -2,7 +2,7 @@
 
 Sifter is a Windows desktop app for scanning ES-DE / EmulationStation-style ROM libraries, matching gamelist metadata and bundled Metacritic scores, selecting games by quality/size/metadata, and exporting a safe copy to another drive.
 
-It is implemented as a PowerShell + WPF app because this machine has no .NET SDK installed. It runs with Windows PowerShell 5.1 or PowerShell 7 and keeps the source library read-only.
+It is implemented as a PowerShell + WPF app. It runs with Windows PowerShell 5.1 or PowerShell 7 and keeps the source library read-only.
 
 ## Launch
 
