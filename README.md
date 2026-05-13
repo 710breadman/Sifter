@@ -1,81 +1,70 @@
 # Sifter
 
-Sifter is a Windows desktop app for scanning ES-DE / EmulationStation-style ROM libraries, matching gamelist metadata and bundled Metacritic scores, selecting games by quality/size/metadata, and exporting a safe copy to another drive.
+Sifter is a Windows app that helps you sort and copy your retro game library.
 
-It is implemented as a PowerShell + WPF app. It runs with Windows PowerShell 5.1 or PowerShell 7 and keeps the source library read-only.
+It scans your ES-DE / EmulationStation game lists, checks game information and Metacritic scores, lets you pick which games you want, then copies those games to another drive or folder.
 
-## Included Data
+Sifter is designed to be safe:
 
-The provided Metacritic JSONL file is bundled at:
+- It does **not** delete your original ROMs.
+- It does **not** edit your original `gamelist.xml` files.
+- It copies selected games to your chosen export folder.
+- If something goes wrong during copy, Sifter logs the issue and keeps going when it can.
 
-```text
-data\metacritic_game_critic_scores.jsonl
-```
+## What Sifter Is For
 
-On first launch, Sifter copies the bundled file into the existing app-data location:
+Use Sifter when you want to:
 
-```text
-%APPDATA%\RomCurator\cache\metacritic_game_critic_scores.jsonl
-```
+- Find and organize games from a large ROM library.
+- Sort games by rating, size, system, or other information.
+- Pick the best-rated games first.
+- Avoid copying duplicate games when possible.
+- Copy selected games to a smaller drive, handheld, SD card, or backup folder.
+- Keep a record of what was copied.
 
-The app-data folder intentionally remains `%APPDATA%\RomCurator` for now so the rebrand does not force users to remake caches or reload settings.
+## Quick Start
 
-The importer is intentionally flexible. It reads JSONL records with fields such as `title`, `metascore`, `release_date_text`, `rating`, `rank`, `detail_url`, and tolerates nearby schema changes. The Tools / Maintenance tab shows the active record count/date.
+- In Paths area, choose your folders:
+  - Gamelists folder
+  - ROMs folder
+  - Media folder
+  - Export folder
+- Click Save settings.
+- Go to the Library / Selection area.
+- Click Discover Systems.
+- Scan your library.
+- Use filters and sorting to find the games you want.
+- Select the games you want to copy.
+- Recommended: click Preview first.
+- If the preview looks right, click Copy selected.
 
-## Basic Workflow
+## Presets (BETA)
 
-1. Open the app and set:
-   - ES-DE gamelists root, for example `%APPDATA%\EmuDeck\EmulationStation-DE\ES-DE\gamelists`
-   - ROM root, for example `R:\Emulation\roms`
-   - Media root, for example `R:\Emulation\storage\downloaded_media`
-   - Media mode: `AutoDetect`, `Central`, or `BesideRoms`
-   - Export destination and target profile
-2. Save settings.
-3. Use the Library / Selection tab first. It contains discovery, scan, filters, selection, duplicate-aware auto-select, and preset actions.
-4. Click `Discover Systems` for a quick parent-folder scan, then choose whether to scan matched systems, selected systems, or the full ROM directory.
-5. Filter, sort, inspect metadata/media, and select games from the Library tab.
-6. Use the Library tab's auto-select dropdown for top-N, score threshold, or size-limit selection. Excluded systems and duplicate handling are applied before selection.
-7. Use `Dry-run / preview` before `Copy selected`.
+Sifter can save selections as presets.
 
-## Cache And Logs
+User Presets
 
-Library cache:
+Use these for yourself on the same computer.
 
-```text
-%APPDATA%\RomCurator\cache\library_cache.json
-```
+They may include full folder paths, selected games, systems, ratings, sizes, and export settings.
 
-Logs:
+Community Presets
 
-```text
-%APPDATA%\RomCurator\logs\Sifter_*.log
-```
+Use these when sharing a selection with someone else.
 
-Each run writes a detailed timestamped log with startup info, configured paths, scan/cache/export/update actions, warnings, timings, theme changes, discovery results, duplicate handling, preset actions, and full exception details. The Tools / Maintenance tab has buttons to open the cache folder, open the log folder, and view the latest log.
+Community presets try to avoid saving private user information, but lets people share curated lists.
 
-## Updating Metacritic
+## Important Safety Notes
 
-The updater script is bundled at:
+Sifter is meant to copy and organize your own library.
 
-```text
-tools\Build-Metacritic-Critic-Scores.ps1
-```
+Before copying a large library:
 
-Use `Update Metacritic ratings` in Tools / Maintenance to run it. The workflow writes a temporary JSONL file, validates it, backs up the previous active file, and replaces the active database only after validation. `Roll back Metacritic ratings` restores the packaged JSONL.
+- Run a preview.
+- Make sure the export folder is correct.
+- Check available free space.
+- Copy a small test set first if you are unsure.
 
-## Presets
+Sifter keeps your source library read-only, but choosing the correct export folder is still important.
 
-Selection presets have two formats:
-
-- User preset: personal reuse on this machine. It stores full ROM paths, configured roots, systems, selected game identities, ratings, sizes, and export profile.
--  (BETA) Community preset: shareable. It stores only system IDs, cleaned/normalized names, ratings, genres, players, and rules. Full ROM paths, media paths, drive letters, and user folders are omitted and the saved JSON is checked for path-like strings.
-
-## Troubleshooting
-
-- If no systems appear, confirm the gamelists root contains `<system>\gamelist.xml`.
-- If ROMs appear as orphans, check whether gamelist paths are relative to the ROM system folder.
-- If media is missing, try switching media mode between `AutoDetect`, `Central`, and `BesideRoms`.
-- If a Metacritic match looks wrong, select the row and use `Edit rating`.
-- If a media path is wrong, select the row and use `Set image`.
-- If the system dropdown ever shows no rows, clear filters first. Exceptions are logged instead of closing the app.
-- For locked or inaccessible files, export logs record the failure and the export continues.
+This was made to make my personal life easier and for fun
